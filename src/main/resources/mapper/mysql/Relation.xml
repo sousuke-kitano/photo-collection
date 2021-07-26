@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.RelationMapper">
+
+	<!-- マッピング定義 -->
+	<resultMap type="com.example.demo.model.entity.Relation" id="relation">
+		<result column="user_id" property="userId"/>
+		<result column="follower_id" property="followerId"/>
+	</resultMap>
+
+	<!-- テーブル結合時のマッピング定義 -->
+ 	<resultMap type="com.example.demo.model.entity.Relation" id="userJoin">
+		<result column="user_id" property="userId"/>
+		<result column="follower_id" property="followerId"/>
+		<collection property="followerList" ofType="com.example.demo.model.entity.Users" columnPrefix="follower_">
+			<id column="user_id" property="userId"/>
+			<result column="user_name" property="userName"/>
+		</collection>
+	</resultMap>
+
+	<!-- フォローする -->
+	<insert id="insertOne">
+		insert into relation(
+			user_id
+			,follower_id
+		)
+		values(
+			#{userId}
+			,#{followerId}
+		)
+	</insert>
+
+	<!-- フォロー解除 -->
+	<delete id="deleteOne">
+		delete from
+			relation
+		where
+			user_id = #{loginUserId}
+		and
+			follower_id = #{followerUserId}
+	</delete>
+
+	<!-- フォローしているUserList -->
+	<select id="findFollowList" resultMap="userJoin">
+		select
+			relation.user_id
+			,users.user_id as follower_user_id
+			,users.user_name as follower_user_name
+		from
+			relation
+		left join
+			users
+		on
+			relation.follower_id = users.user_id
+		where
+			relation.user_id = #{loginUserId}
+	</select>
+
+	<!-- フォローされているUserList -->
+	<select id="findFollowerList" resultMap="userJoin">
+		select
+			relation.follower_id
+			,users.user_id as follower_user_id
+			,users.user_name as follower_user_name
+		from
+			relation
+		left join
+			users
+		on
+			relation.user_id = users.user_id
+		where
+			relation.follower_id = #{loginUserId}
+	</select>
+</mapper>

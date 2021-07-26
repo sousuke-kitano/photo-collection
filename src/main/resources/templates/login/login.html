@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="login-form">
+			<h1>Well come to Share Photos!</h1>
+			<form th:action="@{/login}" method="post">
+			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+				style="color: red">ログインエラーメッセージ</p>
+				<input type="text" name="email" size="30" placeholder="メールアドレス">
+				<br> <input type="password" name="password" size="30"
+					placeholder="パスワード"> <br>
+				<button class="btn btn-update" type="submit">送信</button>
+			</form>
+			<div class="link">
+				<a th:href="@{/signup}">新規登録はこちら</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

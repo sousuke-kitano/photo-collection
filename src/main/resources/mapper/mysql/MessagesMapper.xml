@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.MessagesMapper">
+
+	<resultMap type="com.example.demo.model.entity.Messages" id="message">
+		<id column="message_id" property="messageId"/>
+		<result column="message" property="message"/>
+		<result column="post_date_time" property="postDateTime"/>
+		<result column="to_user_id" property="toUserId"/>
+		<result column="to_user_name" property="toUserName"/>
+		<result column="from_user_id" property="fromUserId"/>
+		<result column="from_user_name" property="fromUserName"/>
+	</resultMap>
+
+	<insert id="insertOne">
+		insert into messages(
+			message
+			,post_date_time
+			,to_user_id
+			,to_user_name
+			,from_user_id
+			,from_user_name
+		)
+		values(
+			#{message}
+			,#{postDateTime}
+			,#{toUserId}
+			,#{toUserName}
+			,#{fromUserId}
+			,#{fromUserName}
+		)
+	</insert>
+
+	<!-- ログインユーザーとやりとりしているユーザーList -->
+	<select id="messageDoUserList" resultType="com.example.demo.model.message.FromToUser">
+		select
+			from_user_id as from_to_user_id
+    		,from_user_name as from_to_user_name
+		from
+			messages
+		where
+			from_user_id != #{loginUserId}
+		union
+		select
+			to_user_id
+			,to_user_name
+		from
+			messages
+		where
+			to_user_id != #{loginUserId}
+	</select>
+
+	<!-- ログインユーザーと特定のユーザーとのやりとり -->
+	<select id="messageList" resultType="Messages">
+		select
+			messages.message_id
+			,messages.from_user_id
+    		,messages.from_user_name
+    		,messages.message
+			,messages.to_user_id
+    		,messages.to_user_name
+    		,messages.post_date_time
+		from
+			messages
+		where
+			(from_user_id = #{loginUserId} or to_user_id = #{loginUserId})
+		and
+			(from_user_id = #{fromToUserId} or to_user_id = #{fromToUserId})
+		order by
+			messages.post_date_time desc
+		limit #{limitNum}
+
+	</select>
+</mapper>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+<th:block th:insert="fragment/base :: header"></th:block>
+<main class="wrapper">
+<div class="contents-nav">
+	<h2>メッセージ</h2>
+</div>
+<div class="message-list-container" th:each="messageList : ${messageList}">
+	<div th:each="list : ${messageList}">
+		<div th:each="userList : ${fromToUserList}">
+				<div class="message-item" th:if="${list.fromUserId == userList.fromToUserId || list.toUserId == userList.fromToUserId}">
+					<a th:href="@{'/message/detail/' + ${userList.fromToUserId}}">
+						<div class="message-user" th:text="${userList.fromToUserName} + 'さん'"></div>
+						<div class="last-updated">
+							<time th:datetime="${#temporals.format(list.postDateTime, 'yyyy/MM/dd HH:mm')}">
+								<th:block th:text="'最終投稿日時：' + ${#temporals.format(list.postDateTime, 'yyyy/MM/dd HH:mm')}"></th:block>
+							</time>
+						</div>
+						<div class="last-message" th:text="${list.fromUserName} + '：' + ${list.message}"></div>
+					</a>
+				</div>
+		</div>
+	</div>
+</div>
+</main>
+<th:block th:insert="fragment/base :: footer"></th:block>
+
+</body>
+</html>

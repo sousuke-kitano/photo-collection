@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/base :: header"></th:block>
+	<main>
+		<h2 class="myPage-title">投稿フォーム</h2>
+		<form th:action="@{/album/insert}" method="post" th:object="${postPhotoForm}" enctype="multipart/form-data">
+			<table class="form-table" border="1">
+				<input type="hidden" th:field="*{photoId}">
+				<tr>
+					<th class="form-th" th:text="#{title} + '・' + #{picture}"></th>
+					<td class="form-td">
+						<input type="text" th:field="*{title}" size="60" placeholder="タイトルを入力してください">
+						<input type="file" th:field="*{picture}">
+						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red"></div>
+					</td>
+				</tr>
+				<tr>
+					<th class="form-th" th:text="#{content}"></th>
+					<td class="form-td">
+						<textarea rows="10" cols="100" th:field="*{content}"></textarea>
+						<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color: red"></div>
+					</td>
+				</tr>
+			</table>
+				<button class="btn btn-update" type="submit">送信</button>
+		</form>
+	</main>
+	<th:block th:insert="fragment/base :: footer"></th:block>
+</body>
+</html>

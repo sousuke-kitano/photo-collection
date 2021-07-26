@@ -1,0 +1,794 @@
+@charset "UTF-8";
+
+/* 共通部分 */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 100%;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	max-width: 100%;
+}
+
+.wrapper {
+	max-width: 1500px;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.btn-follow  {
+	text-decoration: none;
+	background-image: linear-gradient(#fff, #f5f8fa);
+	border: 1px solid #e6ecf0;
+	border-radius: 4px;
+	color: #00a096;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 0.9rem;
+	font-weight: bold;
+	padding: 8px 20px;
+	position: relative;
+}
+
+.btn-un-follow {
+	text-decoration: none;
+	background-image: linear-gradient(#fff, #f5f8fa);
+	border: 1px solid #e6ecf0;
+	border-radius: 4px;
+	color: #FF3300;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 0.9rem;
+	font-weight: bold;
+	padding: 8px 14px;
+	position: relative;
+}
+
+.btn-follow:hover, .btn-un-follow:hover {
+	background-color: #e6ecf0;
+	background-image: linear-gradient(#fff, #e6ecf0);
+	border-color: #e6ecf0;
+}
+
+/* ヘッダー */
+
+header {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 80px;
+	background-color: white;
+}
+
+
+.header-group {
+	display: flex;
+	list-style: none;
+	padding-top: 40px;
+}
+
+.header-list {
+	padding-left: 40px;
+	font-weight: bold;
+}
+
+.header-list a {
+	color: #00a096;
+}
+
+.header-list a:hover {
+	color: red;
+}
+
+.user-name {
+	text-align: right;
+	margin-right: 30px;
+	padding-top: 40px;
+	color: #00a096;
+	font-weight: bold;
+}
+
+/* フッター */
+
+footer {
+	width: 100%;
+	height: 100px;
+}
+
+footer p {
+	text-align: center;
+	padding-top:15px;
+	color: #00a096;
+	letter-spacing: 2px;
+}
+
+.footer-group {
+	display: flex;
+	list-style: none;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.footer-list {
+	padding-left: 40px;
+	font-weight: bold;
+}
+
+.footer-list a {
+	color: #00a096;
+}
+
+.footer-list a:hover {
+	color: red;
+}
+
+/* トップページ */
+
+.big-bg {
+	height: 800px;
+	width: 99%;
+	margin: 20px auto 0;
+	background-size: cover;
+	background-position: center top;
+	background-repeat: no-repeat;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+
+.big-bg h1 {
+	padding-top: 250px;
+	font-size: 4rem;
+	text-align: center;
+	letter-spacing: 10px;
+	font-family: Philosopher;
+}
+
+.big-bg p {
+	text-align: center;
+	padding-top: 20px;
+	letter-spacing: 5px;
+}
+
+.photo-item {
+	width: 90%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	margin: 20px auto;
+	border-color: silver;
+}
+
+.photo-item a:hover {
+	background-color: #DDDDDD;
+}
+
+.photo-not-exist {
+	width: 90%;
+	height: 120px;
+	margin: 20px auto;
+	border-top: 1px solid;
+	text-align: center;
+}
+
+.photo-not-exist p {
+	padding: 30px 0 10px;
+}
+
+.photo-not-exist a {
+	color: #00a096;
+	font-weight: bold;
+}
+
+.photo-items img {
+	height: 250px;
+	width: 300px;
+	object-fit: contain;
+}
+
+.photo-items {
+	display: block;
+	border: 1px solid;
+	border-color: silver;
+	text-align: center;
+	margin: 30px 35px;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+	padding: 10px 0;
+	border-radius: 5px;
+	background-color: #EEEEEE;
+}
+
+.photo-title {
+	font-size: 1.25rem;
+	padding-bottom: 10px;
+	color: #111111;
+}
+
+.photo-content {
+	color: #111111;
+}
+
+.photo-userName {
+	color: #111111;
+}
+
+.photo-created {
+	color: #111111;
+}
+
+.contents-nav {
+	text-align: center;
+	padding-top: 80px;
+	letter-spacing: 3px;
+}
+
+/* ページネーション */
+
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.pagination li{
+    margin: 5px;
+}
+
+.pagination a{
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 5px;
+}
+
+.pagination a:hover{
+    color: red;
+}
+
+.active{
+    background-color: #EEEEEE;
+}
+
+/* マイページ */
+
+.myPage-title {
+	text-align: center;
+	margin: 30px 0;
+	letter-spacing: 10px;
+	font-size: 2rem;
+}
+
+.myPage-table {
+	border-collapse: collapse;
+	width: 90%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+
+.myPage-tr {
+	border-bottom: solid 2px white;
+}
+
+.myPage-tr:last-child {
+	border-bottom: none;
+}
+
+.myPage-th {
+	position: relative;
+	text-align: left;
+	width: 30%;
+	background-color: #52c2d0;
+	color: white;
+	text-align: center;
+	padding: 10px 0;
+	letter-spacing: 5px;
+}
+
+.myPage-td {
+	text-align: left;
+	width: 70%;
+	text-align: center;
+	background-color: #eee;
+	padding: 10px 0;
+	letter-spacing: 8px;
+	font-weight: bold;
+}
+
+/* ユーザー一覧ページ */
+.userList-table {
+	border-collapse: collapse;
+	width: 90%;
+	height: 200px;
+	margin: 40px auto;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+
+.userList-tr-top {
+	background-color: #52c2d0;
+	color: white;
+	letter-spacing: 5px;
+}
+
+.userList-tr:nth-child(even) {
+	background-color: #eee;
+}
+
+.userList-td {
+	text-align: center;
+	letter-spacing: 5px;
+}
+
+.send-message {
+	margin-top: 20px;
+}
+
+/* フォーム画面 */
+
+.form-table {
+	width: 83%;
+	height: 200px;
+	margin: 30px auto 50px;
+	border-collapse: collapse;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+
+.form-th {
+	width: 300px;
+	padding: 30px 5px;
+	letter-spacing: 7px;
+	background-color: #52c2d0;
+	color: white;
+}
+
+
+.form-td {
+	padding: 30px 10px;
+	display: flex;
+	flex-wrap: wrap;
+	border-left: none;
+	border-top: none;
+}
+
+.form-td input[type = "text"] {
+	background: #f8f8f8;
+	display: block;
+	font-size: 16px;
+	padding: 12px 15px;
+	width: 500px;
+	border-radius: 0;
+	text-align: center;
+}
+
+.form-td input[type = "file"] {
+	padding-top: 20px;
+	padding-left: 40px;
+}
+
+.form-td textarea {
+	border: 1px solid #ffffff;
+	box-shadow: 1px 1px 2px 0 #707070 inset;
+	border-radius: 4px;
+	font-size: 16px;
+	padding: 12px 15px;
+}
+
+.btn  {
+	width: 120px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	padding: 8px 0 10px;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 2px 2px #1a6ea0;
+	text-shadow: 0 -1px #1a6ea0;
+	margin: 10px auto;
+}
+
+.btn-update {
+	background-color: #6495ED;
+}
+
+.btn-delete {
+	background-color: #FF4500;
+}
+
+.btn-nav {
+	display: flex;
+	margin: 20px 300px;
+}
+
+/* ログインページ */
+
+.login-form {
+	text-align: center;
+	margin-top: 120px;
+	padding: 10px 30px;
+}
+
+.login-form h1 {
+	font-size: 4rem;
+	padding-bottom: 40px;
+	color: #00a096;
+	font-family: Philosopher;
+}
+
+.login-form input {
+	font-size: 16px;
+	margin: 15px;
+	padding: 10px 40px;
+	background-color: #EEEEEE;
+	text-align: center;
+}
+
+.login-btn {
+	margin-top: 20px;
+}
+
+.link {
+	padding-top: 20px;
+}
+
+/* サインアップページ */
+
+.signup-title {
+	text-align: center;
+	margin: 80px 0 50px;
+	font-size: 2rem;
+	letter-spacing: 10px;
+}
+
+.signup-form {
+	width: 60%;
+	height: 200px;
+	margin: 30px auto 60px;
+	border-collapse: collapse;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+
+}
+
+.signup-gender {
+	display: flex;
+	justify-content: space-around;
+	padding: 30px 80px 30px;
+	border: none;
+	font-size: 1.1rem;
+}
+
+.signup-footer {
+	height: 80px;
+}
+
+/* 詳細ページ */
+
+.details-container {
+	margin: 40px auto;
+	width: 60%;
+	border: 1px solid;
+	border-radius: 10px;
+	padding-top: 30px;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+	background-color: #EEEEEE;
+}
+
+ .details-image {
+	height: 100%;
+	width: 700px;
+	margin: 20px auto;
+
+}
+
+.details-image img {
+	height: 100%;
+	width: 100%;
+	display: block;
+	object-fit: contain;
+}
+
+.details-contents {
+	width: 800px;
+	letter-spacing: 3px;
+	padding: 10px;
+	margin: 30px auto;
+}
+
+.details-title {
+	text-align: center;
+	letter-spacing: 5px;
+}
+
+.details-username {
+	text-align: right;
+}
+
+.details-content {
+	height: 80%;
+	padding: 15px;
+	border: 1px solid;
+	border-color: silver;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.details-created {
+	text-align: right;
+}
+
+.comment-list-wrapper {
+	margin: 70px auto;
+	width: 70%;
+	border-top: 4px solid;
+	border-top-style: groove;
+	padding-top: 40px;
+}
+
+.comment-list-wrapper h2 {
+	text-align: center;
+	letter-spacing: 5px;
+}
+
+.comment-container {
+	margin: 30px auto;
+	width: 80%;
+	border: 1px solid;
+	border-radius: 7px;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+	background-color: #EEEEEE;
+	padding: 10px;
+}
+
+.comment-username {
+	letter-spacing: 2px;
+}
+
+.comment-created {
+	text-align: right;
+	letter-spacing: 2px;
+}
+
+.comment {
+	margin: 7px 30px;
+	letter-spacing: 2px;
+}
+
+.comment-form-wrapper {
+	margin: 0 auto;
+	width: 70%;
+	padding: 30px 0;
+	border-top: 4px solid;
+	border-top-style: groove;
+}
+
+.comment-text {
+	text-align: center;
+	margin: 0 auto;
+	width: 90%;
+}
+
+.comment-text h2 {
+	letter-spacing: 5px;
+}
+
+.comment-text textarea {
+	border: 1px solid;
+	border-style: groove;
+	font-size: 1.12rem;
+	padding: 10px;
+	letter-spacing: 3px;
+	margin-top: 20px;
+	box-shadow: 1px 1px 2px 0 #707070 inset;
+}
+
+.comment-none {
+	text-align: center;
+	margin-top: 40px;
+}
+
+/* 編集画面 */
+
+.edit-content {
+	height: 75%;
+	margin: 0 15px;
+	text-align: center;
+}
+
+.edit-content textarea {
+	width: 100%;
+	height: 100%;
+	border: 1px solid;
+	border-radius: 5px;
+	border-color: silver;
+	padding: 10px;
+}
+
+.edit-content p {
+}
+
+.edit-title {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.edit-title input {
+	width: 90%;
+	border: 1px solid;
+	text-align: center;
+	border-radius: 5px;
+	border-color: silver;
+}
+
+.edit-contents {
+	margin: 10px auto;
+	width: 80%;
+	letter-spacing: 3px;
+	padding: 10px;
+}
+
+/* メッセージ一覧画面 */
+
+.message-list-container {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.message-container {
+	width: 70%;
+	margin: 0 auto;
+	padding: 50px 0;
+}
+
+.message-container h2 {
+	text-align: center;
+	margin: 30px 0;
+	color: #00a096;
+	font-size: 1.5rem;
+	letter-spacing: 5px;
+}
+
+.message-item {
+	border: 1px solid;
+	padding: 15px;
+	background-color: #EEEEEE;
+	border-color: silver;
+	box-shadow: 3px 3px 0px 0 rgb(0, 0, 0, .5);
+	width: 80%;
+	margin: 30px auto;
+
+}
+
+.from-message-item {
+	border: 1px solid;
+	padding: 15px;
+	background-color: #EEEEEE;
+	border-color: silver;
+	width: 70%;
+	margin-right: auto;
+	box-shadow: 3px 3px 0px 0 rgb(0, 0, 0, .5);
+}
+
+.to-message-item {
+	border: 1px solid;
+	padding: 15px;
+	background-color: #EEEEEE;
+	border-color: silver;
+	width: 70%;
+	margin-left: auto;
+	box-shadow: 3px 3px 0px 0 rgb(0, 0, 0, .5);
+}
+
+.post-date-time {
+	text-align: right;
+	font-size: 0.3rem;
+}
+
+.from-message-name {
+	text-align: left;
+	width: 70%;
+	margin-top: 30px;
+	color: #00a096;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.to-message-name {
+	text-align: left;
+	width: 70%;
+	margin-left: auto;
+	margin-top: 15px;
+	color: #00a096;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.message-content {
+	font-size: 0.9rem;
+}
+
+.message-item a {
+	color: #111111;
+}
+
+.message-item a:hover {
+	color: #00a096;
+}
+
+.message-user {
+	font-size: 1.1rem;
+}
+
+.last-updated {
+	font-size: 0.5rem;
+	margin-left: 20px;
+	margin-top: 2px;
+}
+
+.last-message {
+	overflow: hidden;
+	margin: 5px 20px;
+	font-size: 0.9rem;
+	width: 600px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.message-form-wrapper {
+	margin: 50px auto 0;
+	width: 80%;
+	padding: 30px 0;
+	border-bottom: 4px solid;
+	border-bottom-style: groove;
+}
+
+.message-text {
+	text-align: center;
+	margin: 0 auto;
+	width: 90%;
+}
+
+.message-text h2 {
+	letter-spacing: 5px;
+}
+
+.message-text textarea {
+	border: 1px solid;
+	border-style: groove;
+	font-size: 1.12rem;
+	padding: 10px;
+	letter-spacing: 3px;
+	margin-top: 20px;
+	box-shadow: 1px 1px 2px 0 #707070 inset;
+}
+
+.follow-toggle {
+	cursor: pointer;
+	width: 70px;
+	margin: 0 auto;
+}
+
+.follower-toggle {
+	cursor: pointer;
+	width: 70px;
+	margin: 0 auto;
+}
+
+.follow-toggle-people {
+	display: none;
+}
+
+.follower-toggle-people {
+	display: none;
+}

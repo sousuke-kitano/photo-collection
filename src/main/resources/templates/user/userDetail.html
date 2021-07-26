@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/base :: header"></th:block>
+	<div class="wrapper">
+	<h2 class="myPage-title">ユーザー情報</h2>
+	<table class="myPage-table" border="1">
+		<tr class="myPage-tr">
+			<th class="myPage-th" th:text="#{userName}"></th>
+			<td class="myPage-td" th:text="${selfUser.userName}"></td>
+		</tr>
+		<tr class="myPage-tr">
+			<th class="myPage-th" th:text="#{age}"></th>
+			<td class="myPage-td" th:text="${selfUser.age} + '歳'"></td>
+		</tr>
+		<tr class="myPage-tr">
+			<th class="myPage-th" th:text="#{birthday}"></th>
+			<td class="myPage-td" th:text="${#temporals.format(selfUser.birthday, 'yyyy/MM/dd')}"></td>
+		</tr>
+		<tr class="myPage-tr">
+			<th class="myPage-th" th:text="#{gender}"></th>
+			<td class="myPage-td" th:text="${selfUser.gender} == 1 ? '男性' : '女性'"></td>
+		</tr>
+			<tr class="myPage-tr">
+				<th class="myPage-th">フォロー</th>
+				<td class="myPage-td">
+					<th:block th:if="${followList != null}">
+	 					<div class="follow-toggle" th:text="${followList.followerList.size() + '人'}"></div>
+	 				</th:block>
+	 				<th:block th:if="${followList == null}">
+	 					0人
+	 				</th:block>
+	 			</td>
+			</tr>
+			<th:block th:if="${followList != null}">
+				<tr class="myPage-tr follow-toggle-people">
+					<th class="myPage-th">フォローリスト</th>
+					<td class="myPage-td">
+						<ul th:each="list : ${followList.followerList}">
+							<li>
+								<a th:href="@{'/user/detail/' + ${list.userId}}" th:text="${list.userName}"></a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</th:block>
+			<tr class="myPage-tr">
+				<th class="myPage-th">フォロワー</th>
+				<td class="myPage-td">
+					<th:block th:if="${followerList != null}">
+	 					<div class="follower-toggle" th:text="${followerList.followerList.size() + '人'}"></div>
+	 				</th:block>
+	 				<th:block th:if="${followerList == null}">
+	 					0人
+	 				</th:block>
+				</td>
+			</tr>
+			<th:block th:if="${followerList != null}">
+				<tr class="myPage-tr follower-toggle-people">
+					<th class="myPage-th">フォロワーリスト</th>
+					<td class="myPage-td">
+						<ul th:each="list : ${followerList.followerList}">
+							<li>
+								<a th:href="@{'/user/detail/' + ${list.userId}}" th:text="${list.userName}"></a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</th:block>
+	</table>
+		<div class="contents-nav">
+			<h2 th:text="${selfUser.userName} + 'さんのPhoto Collections'"></h2>
+			<div class="send-message" th:if="${session.userId != selfUser.userId}">
+				<a th:href="@{'/message/detail/' + ${selfUser.userId}}">メッセージを送信する</a>
+			</div>
+			<br>
+			<th:block th:if="${session.userId != selfUser.userId}">
+				<th:block th:if="${followerList != null}">
+						<th:block th:if="${#lists.contains(userIdList, session.userId)}">
+							<form th:action="@{'/relation/deleteFollower/' + ${selfUser.userId}}" method="post">
+								<button class="btn-un-follow" type="submit" name="unfollow">フォロー解除</button>
+							</form>
+						</th:block>
+						<th:block th:unless="${#lists.contains(userIdList, session.userId)}">
+							<form th:action="@{'/relation/doFollower/' + ${selfUser.userId}}" method="post">
+								<button class="btn-follow" type="submit" name="follower">フォロー</button>
+							</form>
+						</th:block>
+				</th:block>
+				<th:block th:if="${followerList == null}">
+					<form th:action="@{'/relation/doFollower/' + ${selfUser.userId}}" method="post">
+						<button class="btn-follow" type="submit" name="follower">フォロー</button>
+					</form>
+				</th:block>
+			</th:block>
+		</div>
+		<div th:unless="${#lists.isEmpty(pictureList)}" class="photo-item pagenation">
+			<a th:href="@{/album/detail/__${selfUser.photoList[i].photoId}__}"
+			th:each="i : ${#numbers.sequence(0, selfUser.photoList.size()-1)}" class="photo-items">
+				<p class="photo-title" th:text="${selfUser.photoList[__${i}__].title}"></p>
+				<img alt="" th:src="${'data:image/png;base64,' + pictureList[__${i}__]}">
+				<p class="photo-userName" th:text="'ニックネーム：' + ${selfUser.photoList[__${i}__].userName}"></p>
+				<p class="photo-created"
+				th:text="'投稿日時：' + ${#temporals.format(selfUser.photoList[__${i}__].created, 'yyyy/MM/dd HH:mm')}"></p>
+			</a>
+		</div>
+		<div th:if="${#lists.isEmpty(pictureList)}" class="photo-not-exist">
+			<p>まだ投稿がありません</p>
+		</div>
+		</div>
+	<th:block th:insert="fragment/base :: footer"></th:block>
+</body>
+</html>

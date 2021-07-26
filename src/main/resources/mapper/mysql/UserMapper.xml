@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.UserMapper">
+
+	<!-- マッピング定義 -->
+ 	<resultMap type="com.example.demo.model.entity.Users" id="photoJoin">
+		<id column="user_id" property="userId"/>
+		<result column="email" property="email"/>
+		<result column="user_name" property="userName"/>
+		<result column="password" property="password"/>
+		<result column="age" property="age"/>
+		<result column="gender" property="gender"/>
+		<result column="birthday" property="birthday"/>
+		<result column="role" property="role"/>
+		<collection property="photoList" ofType="com.example.demo.model.entity.PostPhoto" columnPrefix="photo_">
+			<result column="photo_id" property="photoId"/>
+			<result column="title" property="title"/>
+			<result column="picture" property="picture"/>
+			<result column="content" property="content"/>
+			<result column="created" property="created"/>
+			<result column="user_id" property="userId"/>
+			<result column="user_name" property="userName"/>
+		</collection>
+	</resultMap>
+
+	<!-- マッピング定義 -->
+	<resultMap type="com.example.demo.model.entity.Users" id="user">
+		<id column="user_id" property="userId"/>
+		<result column="email" property="email"/>
+		<result column="user_name" property="userName"/>
+		<result column="password" property="password"/>
+		<result column="age" property="age"/>
+		<result column="gender" property="gender"/>
+		<result column="birthday" property="birthday"/>
+		<result column="role" property="role"/>
+	</resultMap>
+
+	<!-- ユーザー一件登録 -->
+	<insert id="insertOne">
+		insert into users(
+			email
+			,user_name
+			,password
+			,age
+			,gender
+			,birthday
+			,role
+		)
+		values(
+			#{email}
+			,#{userName}
+			,#{password}
+			,#{age}
+			,#{gender}
+			,#{birthday}
+			,#{role}
+		)
+	</insert>
+
+	<!-- ユーザー全件取得 -->
+	<select id="findMany" resultType="Users">
+		select
+			*
+		from
+			users
+	</select>
+
+	<!-- ログインユーザー取得 -->
+	<select id="findLoginUser" resultMap="user">
+		select
+			*
+		from
+			users
+		where
+			email = #{email}
+	</select>
+
+	<!-- ユーザー１件取得 -->
+	<select id="findOne" resultMap="user">
+		select
+			*
+		from
+			users
+		where
+			user_id = #{userId}
+	</select>
+
+	<!-- ログインユーザーのアルバム情報取得 -->
+ 	<select id="findAlbumList" resultMap="photoJoin">
+		select
+			users.user_id
+			,users.email
+			,users.user_name
+			,users.age
+			,users.birthday
+			,users.gender
+			,photos.photo_id as photo_photo_id
+			,photos.title as photo_title
+			,photos.picture as photo_picture
+			,photos.content as photo_content
+			,photos.created as photo_created
+			,photos.user_id as photo_user_id
+			,photos.user_name as photo_user_name
+		from
+			users
+			left join photos
+				on users.user_id = photos.user_id
+		where
+			users.user_id = #{userId}
+		order by
+			photo_created desc
+	</select>
+
+</mapper>

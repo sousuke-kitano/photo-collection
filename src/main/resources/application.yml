@@ -1,0 +1,49 @@
+spring:
+  messages:
+    basename: messages, ValidationMessages
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/photo_album
+    username: root
+    password: wsrni022
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+mybatis:
+  mapper-locations:
+  - classpath*:/mapper/mysql/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.example.demo.model.entity
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    com.example: debug
+
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring.datasource.url=jdbc:mysql://localhost:3306/photo_album
+#spring.datasource.username=root
+#spring.datasource.password=wsrni022
+#
+#
+## テーブル自動作成
+#spring.jpa.hibernate.ddl-auto = none
+#
+## SQLログ出力
+#logging.level.org.hibernate.SQL = debug
+#
+## MyBatis
+#mybatis.mapper-locations = classpath*:/mapper/mysql/*.xml
+## select結果のアンダースコアをキャメルケースに変換する
+#mybatis.configuration.map-underscore-to-camel-case = true
+## resultTypeに指定するデータ型はパッケージ名も含める必要があるが、こうするとclass名だけでよくなる
+#mybatis.type-aliases-package = com.example.demo.model.entity
+#
+## Log Level
+#logging.level.com.example = debug
+#
+## バインドメッセージファイルの指定
+#spring.messages.basename = messages,ValidationMessages

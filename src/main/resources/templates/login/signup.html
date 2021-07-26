@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<div class="wrapper">
+	<h2 class="signup-title">ユーザー登録</h2>
+	<form th:action="@{/signup}" method="post" th:object="${usersForm}">
+		<table border="1" class="signup-form">
+			<tr>
+				<th class="form-th">メールアドレス</th>
+				<td class="form-td">
+					<input type="text" th:field="*{email}" placeholder="メールアドレス">
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></div>
+				</td>
+			</tr>
+			<tr>
+				<th class="form-th">パスワード</th>
+				<td class="form-td">
+					<input type="text" th:field="*{password}" placeholder="パスワード">
+					<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></div>
+				</td>
+			</tr>
+			<tr>
+				<th class="form-th">ニックネーム</th>
+				<td class="form-td">
+					<input type="text" th:field="*{userName}" placeholder="ニックネーム">
+					<div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" style="color: red"></div>
+				</td>
+			</tr>
+			<tr>
+				<th class="form-th">年齢</th>
+				<td class="form-td">
+					<input type="text" th:field="*{age}" placeholder="年齢">
+					<div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" style="color: red"></div>
+				</td>
+			</tr>
+			<tr>
+				<th class="form-th">誕生日</th>
+				<td class="form-td">
+					<input type="text" th:field="*{birthday}" placeholder="yyyy/MM/dd">
+					<div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" style="color: red"></div>
+				</td>
+			</tr>
+				<tr>
+					<th class="form-th">性別</th>
+					<td class="signup-gender">
+							<label> <input type="radio" th:value="1"
+								th:field="*{gender}">男性</label>
+							<label> <input type="radio" th:value="2"
+								th:field="*{gender}">女性</label>
+							<div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" style="color: red"></div>
+					</td>
+				</tr>
+			</table>
+			<button class="btn btn-update" type="submit">登録</button>
+	</form>
+	<footer class="signup-footer"></footer>
+	</div>
+</body>
+</html>

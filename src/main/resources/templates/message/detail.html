@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+<th:block th:insert="fragment/base :: header"></th:block>
+	<main class="wrapper">
+		<form th:action="@{'/message/insert/' + ${toUserId}}" method="post" th:object="${messagesForm}">
+			<div class="message-form-wrapper">
+				<div class="message-text">
+					<h2>メッセージを送る</h2>
+					<textarea rows="10" cols="90" th:field="*{message}"></textarea>
+					<div th:if="${#fields.hasErrors('message')}" th:errors="*{message}" style="color: red"></div>
+					<button class="btn btn-update" type="submit">送信</button>
+				</div>
+			</div>
+		</form>
+
+		<div class="message-container pagenation">
+			<h2 th:text="${toUserName}"></h2>
+			<div th:each="list : ${messageList}">
+				<div class="from-message-name" th:if="${session.userName == list.fromUserName}">
+					<p>あなた</p>
+				</div>
+				<div class="to-message-name" th:unless="${session.userName == list.fromUserName}"
+					th:text="${list.fromUserName}"></div>
+				<div th:classappend="|${session.userName == list.fromUserName ? 'from-message-item' : ''}
+			 		${session.userName != list.fromUserName ? 'to-message-item' : ''}|">
+					<div class="message-content" th:text="${list.message}"></div>
+					<div class="post-date-time" th:text="${#temporals.format(list.postDateTime, 'yyyy/MM/dd HH:mm:ss')}"></div>
+				</div>
+			</div>
+		</div>
+		<th:block th:insert="fragment/base :: footer"></th:block>
+	</main>
+</body>
+</html>

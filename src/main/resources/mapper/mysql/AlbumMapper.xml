@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.PostPhotoMapper">
+
+	<!-- マッピング定義 -->
+	<resultMap type="com.example.demo.model.entity.PostPhoto" id="photo">
+		<id column="photo_id" property="photoId"/>
+		<result column="title" property="title"/>
+		<result column="picture" property="picture"/>
+		<result column="content" property="content"/>
+		<result column="created" property="created"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+	</resultMap>
+
+	<!-- マッピング定義：Commentsテーブル結合 -->
+	<resultMap type="com.example.demo.model.entity.PostPhoto" id="commentJoin">
+		<id column="photo_id" property="photoId"/>
+		<result column="title" property="title"/>
+		<result column="picture" property="picture"/>
+		<result column="content" property="content"/>
+		<result column="created" property="created"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<collection property="commentList" ofType="com.example.demo.model.entity.Comments" columnPrefix="comment_">
+			<id column="comment_id" property="commentId"/>
+			<result column="comment" property="comment"/>
+			<result column="created" property="created"/>
+			<result column="user_id" property="userId"/>
+			<result column="user_name" property="userName"/>
+			<result column="photo_id" property="photoId"/>
+		</collection>
+	</resultMap>
+
+	<!-- Commentテーブルと結合して、一覧表示 -->
+	<select id="findCommentList" resultMap="commentJoin">
+		select
+			photos.photo_id
+			,photos.title
+			,photos.picture
+			,photos.content
+			,photos.created
+			,photos.user_id
+			,photos.user_name
+    		,comments.comment_id as comment_id
+    		,comments.comment as comment_comment
+    		,comments.created as comment_created
+    		,comments.user_name as comment_user_name
+		from
+			photos
+		left join comments on
+			photos.photo_id = comments.photo_id
+		where
+			photos.photo_id = #{photoId}
+		order by comments.created desc;
+	</select>
+
+	<!-- アルバム１件登録 -->
+	<insert id="insertOne">
+		insert into photos(
+			title
+			,picture
+			,content
+			,created
+			,user_id
+			,user_name
+		)
+		values(
+			#{title}
+			,#{picture}
+			,#{content}
+			,#{created}
+			,#{userId}
+			,#{userName}
+		)
+	</insert>
+
+	<!-- アルバム全件取得 -->
+	<select id="selectAll" resultType="PostPhoto">
+		select
+			*
+		from
+			photos
+		order by
+			created desc
+	</select>
+
+	<!-- アルバム１件取得 -->
+	<select id="selectOne" resultMap="photo">
+		select
+			*
+		from
+			photos
+		where
+			photo_id = #{photoId}
+	</select>
+
+	<!-- アルバム１件削除 -->
+	<delete id="deleteOne">
+		delete from
+			photos
+		where
+			photo_id = #{photoId}
+	</delete>
+
+	<!-- アルバム１件更新 -->
+	<update id="updateOne">
+		update
+			photos
+		set
+			title = #{title}
+			,content = #{content}
+		where
+			photo_id = #{photoId}
+	</update>
+
+</mapper>

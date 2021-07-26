@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/base :: header"></th:block>
+	<main class="wrapper">
+		<form th:action="@{/album/edit}" method="post" th:object="${postPhotoForm}">
+		<input type="hidden" th:field="*{photoId}">
+		<div class="details-container">
+			<div class="details-image">
+				<img alt="" th:src="${'data:image/png;base64,' + image}" width="800"
+					height="600">
+			</div>
+			<div class="edit-contents">
+				<div class="edit-title">
+					<p th:text="#{title}"></p>
+					<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red"></div>
+					<input type="text" th:field="*{title}">
+
+				</div>
+				<div class="edit-content">
+					<p th:text="#{content}"></p>
+					<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color: red"></div>
+					<textarea rows="10" cols="50" th:field="*{content}"></textarea>
+
+				</div>
+				<div class="details-username">
+					<p th:text="${photo.userName}"></p>
+				</div>
+				<div class="details-created">
+					<p th:text="'作成日時：' + ${#temporals.format(photo.created, 'yyyy/MM/dd HH:mm')}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="btn-nav">
+			<button class="btn btn-update" type="submit" name="update">更新</button>
+			<button class="btn btn-delete" type="submit" name="delete">削除</button>
+		</div>
+
+		</form>
+	</main>
+	<th:block th:insert="fragment/base :: footer"></th:block>
+</body>
+</html>

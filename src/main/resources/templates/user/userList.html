@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/base :: header"></th:block>
+	<h2 class="myPage-title">登録ユーザー一覧</h2>
+	<table class="userList-table" border="1">
+		<tr class="userList-tr-top">
+			<th class="userList-th" th:text="#{userId}"></th>
+			<th class="userList-th" th:text="#{userName}"></th>
+			<th class="userList-th" th:text="#{gender}"></th>
+			<th class="userList-th" th:text="#{age}"></th>
+			<th class="userList-th" th:text="#{birthday}"></th>
+		</tr>
+		<tr class="userList-tr" th:each="list : ${userList}">
+			<td class="userList-td" th:text="${list.email}"></td>
+			<td class="userList-td" th:text="${list.userName}"></td>
+			<td class="userList-td" th:text="${list.gender == 1} ? '男' : '女'"></td>
+			<td class="userList-td" th:text="${list.age} + '歳'"></td>
+			<td class="userList-td" th:text="${#temporals.format(list.birthday, 'yyyy/MM/dd')}"></td>
+		</tr>
+	</table>
+</body>
+</html>

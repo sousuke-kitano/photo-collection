@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:fragment="head">
+	<title>Share photos application</title>
+	<link rel="stylesheet" th:href="@{https://unpkg.com/ress/dist/ress.min.css}">
+	<link rel="stylesheet"
+		th:href="@{https://fonts.googleapis.com/css?family=Philosopher}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script type="text/javascript" th:src="@{/js/paginathing.min.js}" defer></script>
+	<script type="text/javascript" th:src="@{/js/script.js}" defer></script>
+</th:block>
+</head>
+<body>
+	<header th:fragment="header" class="wrapper">
+		<ul class="header-group">
+			<li class="header-list"><a th:href="@{/album/index}">Top画面へ</a></li>
+			<li class="header-list"><a th:href="@{/album/create}">投稿する</a></li>
+			<li class="header-list"><a th:href="@{/user/myPage}">マイページ</a></li>
+			<li class="header-list"><a th:href="@{/message/list}">メッセージ</a></li>
+			<li class="header-list" role="presentation"
+				sec:authorize="hasRole('ADMIN')"><a th:href="@{/user/list}">ユーザー一覧</a>
+			</li>
+			<li class="header-list">
+				<a th:href="@{/logout}">ログアウト</a>
+			</li>
+		</ul>
+		<p class="user-name" th:text="ようこそ、 + ${session.userName} + さん"></p>
+	</header>
+	<footer th:fragment="footer">
+		<ul class="footer-group">
+			<li class="footer-list"><a th:href="@{/album/index}">Top画面へ</a></li>
+			<li class="header-list"><a th:href="@{/album/create}">投稿する</a></li>
+			<li class="footer-list"><a th:href="@{/user/myPage}">マイページ</a></li>
+			<li class="footer-list" role="presentation" sec:authorize="hasRole('ADMIN')">
+				<a th:href="@{/user/list}">ユーザー一覧</a>
+			</li>
+			<li class="footer-list"><a th:href="@{/logout}">ログアウト</a></li>
+		</ul>
+		<p>Developer : Sosuke Kitano</p>
+	</footer>
+</body>
+</html>

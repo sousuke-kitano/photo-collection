@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:insert="fragment/base :: head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/base :: header"></th:block>
+	<main class="wrapper">
+		<div class="big-bg"
+			th:style="'background-image: url(' + @{../images/top.jpeg} + ');'">
+			<h1>Share Photos</h1>
+			<p>さあ、あなたも思い出の写真をシェアしましょう！</p>
+		</div>
+
+		<div class="contents-nav">
+			<h2>Photo Collections</h2>
+		</div>
+		<div class="photo-item pagenation" th:unless="${#lists.isEmpty(photoList)}">
+			<th:block th:each="list : ${photoList}">
+				<th:block th:each="map : ${pictureMap}">
+					<th:block th:if="${list.photoId == map.getKey()}">
+						<a class="photo-items" th:href="@{/album/detail/__${list.photoId}__}">
+							<p class="photo-title" th:text="${list.title}"></p>
+							<img alt="" th:src="${'data:image/png;base64,' + map.getValue()}">
+							<div class="photo-nav">
+								<p class="photo-userName" th:text="'ニックネーム：' + ${list.userName}"></p>
+								<p class="photo-created"
+									th:text="'投稿日時：' + ${#temporals.format(list.created, 'yyyy/MM/dd HH:mm')}"></p>
+							</div>
+						</a>
+					</th:block>
+				</th:block>
+			</th:block>
+		</div>
+		<div th:if="${#lists.isEmpty(photoList)}" class="photo-not-exist">
+			<p>まだ投稿がありません</p>
+			<a th:href="@{/album/create}">今すぐ投稿する</a>
+		</div>
+	</main>
+	<th:block th:insert="fragment/base :: footer"></th:block>
+</body>
+</html>
