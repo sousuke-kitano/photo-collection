@@ -11,15 +11,15 @@
 		<form th:action="@{/album/insert}" method="post" th:object="${postPhotoForm}" enctype="multipart/form-data">
 			<table class="form-table" border="1">
 				<input type="hidden" th:field="*{photoId}">
-				<tr>
+				<tr class="form-tr">
 					<th class="form-th" th:text="#{title} + '・' + #{picture}"></th>
 					<td class="form-td">
-						<input type="text" th:field="*{title}" size="60" placeholder="タイトルを入力してください">
+						<input type="text" th:field="*{title}" placeholder="タイトルを入力してください">
 						<input type="file" th:field="*{picture}">
 						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red"></div>
 					</td>
 				</tr>
-				<tr>
+				<tr class="form-tr">
 					<th class="form-th" th:text="#{content}"></th>
 					<td class="form-td">
 						<textarea rows="10" cols="100" th:field="*{content}"></textarea>
