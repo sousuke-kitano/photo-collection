@@ -42,6 +42,7 @@ logging:
 ## resultTypeに指定するデータ型はパッケージ名も含める必要があるが、こうするとclass名だけでよくなる
 #mybatis.type-aliases-package = com.example.demo.model.entity
 
+
 ## Log Level
 #logging.level.com.example = debug
 
