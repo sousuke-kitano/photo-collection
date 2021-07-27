@@ -44,6 +44,6 @@ logging:
 #
 ## Log Level
 #logging.level.com.example = debug
-#
+
 ## バインドメッセージファイルの指定
 #spring.messages.basename = messages,ValidationMessages
